@@ -1,37 +1,26 @@
-const { app, BrowserWindow } = require('electron');
+const { app, BrowserWindow } = require('electron')
+const path = require('node:path')
 
-// Function to create the app window
-function createWindow() {
-  // Create the browser window
+const createWindow = () => {
   const mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
     webPreferences: {
-      nodeIntegration: true
+      preload: path.join(__dirname, 'preload.js')
     }
-  });
+  })
 
-  // Load the index.html file of the app
-  mainWindow.loadFile('index.html');
-
-  // Open the DevTools
-  mainWindow.webContents.openDevTools();
+  mainWindow.loadFile('index.html')
 }
 
-// When Electron is ready, create the app window
-app.whenReady().then(createWindow);
+app.whenReady().then(() => {
+  createWindow()
 
-// Quit when all windows are closed, except on macOS where it is common for applications and their menu bar
-// to stay active until the user quits explicitly with Cmd + Q
+  app.on('activate', () => {
+    if (BrowserWindow.getAllWindows().length === 0) createWindow()
+  })
+})
+
 app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') {
-    app.quit();
-  }
-});
-
-// On macOS, re-create a window in the app when the dock icon is clicked and there are no other windows open
-app.on('activate', () => {
-  if (BrowserWindow.getAllWindows().length === 0) {
-    createWindow();
-  }
-});
+  if (process.platform !== 'darwin') app.quit()
+})
