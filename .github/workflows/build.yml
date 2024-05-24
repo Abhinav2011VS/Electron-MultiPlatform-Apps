@@ -1,0 +1,88 @@
+name: Build Electron App
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-macos:
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build Electron app for macOS
+        run: |
+          npm install -g electron-builder
+          electron-builder --mac
+
+      - name: Upload macOS artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: my-electron-app-macos
+          path: dist/*.dmg
+
+  build-windows:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build Electron app for Windows
+        run: |
+          npm install -g electron-builder
+          electron-builder --win
+
+      - name: Upload Windows artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: my-electron-app-windows
+          path: dist/*.{exe,msi}
+
+  build-linux:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build Electron app for Linux
+        run: |
+          npm install -g electron-builder
+          electron-builder --linux
+
+      - name: Upload Linux artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: my-electron-app-linux
+          path: dist/*.AppImage
