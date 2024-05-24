@@ -5,11 +5,16 @@
   "main": "main.js",
   "scripts": {
     "start": "electron .",
-    "build": "electron-builder"
+    "build": "electron-builder build",
+    "dist:win": "npm run dist -- -w",
+    "dist:mac": "npm run dist -- -m",
+    "dist:linux": "npm run dist -- -l",
+    "lint": "eslint --config .eslintrc.json ."
   },
   "devDependencies": {
-    "electron": "^13.0.0",
-    "electron-builder": "^22.11.7"
+    "electron": "^30.0.1",
+    "electron-builder": "^24.13.3",
+    "eslint": "^8.57.0"
   },
   "build": {
     "appId": "com.example.my-electron-app",
