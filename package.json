@@ -1,34 +1,33 @@
 {
-    "name": "my-electron-app",
-    "version": "1.0.0",
-    "description": "A simple Electron application.",
-    "main": "src/main.js",
-    "scripts": {
-      "start": "electron .",
-      "build": "electron-builder"
+  "name": "my-electron-app",
+  "version": "1.0.0",
+  "description": "A simple Electron application.",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder"
+  },
+  "devDependencies": {
+    "electron": "^13.0.0",
+    "electron-builder": "^22.11.7"
+  },
+  "build": {
+    "appId": "com.example.my-electron-app",
+    "mac": {
+      "category": "public.app-category.utilities",
+      "target": ["dmg", "zip"]
     },
-    "devDependencies": {
-      "electron": "^13.0.0",
-      "electron-builder": "^22.11.7"
+    "win": {
+      "target": ["nsis", "msi"]
     },
-    "build": {
-      "appId": "com.example.myelectronapp",
-      "mac": {
-        "category": "public.app-category.utilities",
-        "target": ["dmg", "zip"]
-      },
-      "win": {
-        "target": ["nsis", "msi"]
-      },
-      "linux": {
-        "target": ["AppImage", "deb"]
-      }
-    },
-    "repository": {
-      "type": "git",
-      "url": "https://github.com/yourusername/my-electron-app.git"
-    },
-    "author": "Your Name",
-    "license": "UNLICENSED"
-  }
-  
+    "linux": {
+      "target": ["AppImage", "deb"]
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/my-electron-app.git"
+  },
+  "author": "Your Name",
+  "license": "UNLICENSED"
+}
