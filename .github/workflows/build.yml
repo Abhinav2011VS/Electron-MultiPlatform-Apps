@@ -9,80 +9,42 @@ on:
       - main
 
 jobs:
-  build-macos:
-    runs-on: macos-latest
+  build:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [macos-latest, ubuntu-latest, windows-latest]
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
+      - name: Check out Git repository
+        uses: actions/checkout@v3
 
       - name: Set up Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: '14'
 
       - name: Install dependencies
         run: npm install
 
-      - name: Build Electron app for macOS
+      - name: Build Electron app
+        run: npm run build
+
+      - name: Package Electron app into DMG/EXE/MSI/AppImage/DEB
         run: |
           npm install -g electron-builder
-          electron-builder --mac
+          electron-builder --${
+            if( matrix.os == 'macos-latest' )
+              then 'mac'
+            elseif( matrix.os == 'windows-latest' )
+              then 'win'
+            elseif( matrix.os == 'ubuntu-latest' )
+              then 'linux'
+          }
 
-      - name: Upload macOS artifact
+      - name: Upload artifacts
         uses: actions/upload-artifact@v2
         with:
-          name: my-electron-app-macos
-          path: dist/*.dmg
-
-  build-windows:
-    runs-on: windows-latest
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: '14'
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Build Electron app for Windows
-        run: |
-          npm install -g electron-builder
-          electron-builder --win
-
-      - name: Upload Windows artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: my-electron-app-windows
-          path: dist/*.{exe,msi}
-
-  build-linux:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: '14'
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Build Electron app for Linux
-        run: |
-          npm install -g electron-builder
-          electron-builder --linux
-
-      - name: Upload Linux artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: my-electron-app-linux
-          path: dist/*.AppImage
+          name: my-electron-app-${{ matrix.os }}
+          path: dist/*
