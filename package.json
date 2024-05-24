@@ -49,5 +49,8 @@
     "url": "https://github.com/Abhinav2011VS/Electron-MultiPlatform-Apps.git"
   },
   "author": "Your Name",
-  "license": "UNLICENSED"
+  "license": "UNLICENSED",
+  "engines": {
+    "node": "20.x.x"
+  }
 }
