@@ -41,4 +41,9 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: built-files
-          path: ./dist
+          path: |
+            dist/**/*.dmg
+            dist/**/*.exe
+            dist/**/*.msi
+            dist/**/*.AppImage
+            dist/**/*.deb
