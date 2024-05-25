@@ -6,9 +6,15 @@ const { app, BrowserWindow, ipcMain, Menu, shell } = require('electron')
 const autoUpdater                       = require('electron-updater').autoUpdater
 const ejse                              = require('ejs-electron')
 const fs                                = require('fs')
+const isDev                             = require('./app/assets/js/isdev')
 const path                              = require('path')
 const semver                            = require('semver')
 const { pathToFileURL }                 = require('url')
+const { AZURE_CLIENT_ID, MSFT_OPCODE, MSFT_REPLY_TYPE, MSFT_ERROR, SHELL_OPCODE } = require('./app/assets/js/ipcconstants')
+const LangLoader                        = require('./app/assets/js/langloader')
+
+// Setup Lang
+LangLoader.setupLanguage()
 
 // Setup auto updater.
 function initAutoUpdater(event, data) {
@@ -111,14 +117,30 @@ function createWindow() {
     win = new BrowserWindow({
         width: 980,
         height: 552,
+        icon: getPlatformIcon('SealCircle'),
         webPreferences: {
             nodeIntegration: true,
             contextIsolation: false
         },
     })
-
     win.loadFile('index.html');
-  }
+}
+
+function getPlatformIcon(filename){
+    let ext
+    switch(process.platform) {
+        case 'win32':
+            ext = 'ico'
+            break
+        case 'darwin':
+        case 'linux':
+        default:
+            ext = 'png'
+            break
+    }
+
+    return path.join(__dirname, 'app', 'assets', 'images', `${filename}.${ext}`)
+}
 
 app.on('ready', createWindow)
 
