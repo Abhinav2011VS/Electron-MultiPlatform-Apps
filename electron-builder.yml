@@ -1,11 +1,11 @@
-appId: 'my-electron-app'
-productName: 'My Electron App'
+appId: 'electron-app-multi-os'
+productName: 'Electron App Multi OS'
 artifactName: '${productName}-installer-${version}.${ext}'
 
-copyright: 'Copyright © 2024 Your Name'
+copyright: 'Copyright © 2024 Abhinav VS'
 
 asar: true
-compression: 'minimum'
+compression: 'maximum'
 
 files:
   - '!{dist,.gitignore,.vscode,docs,dev-app-update.yml,.nvmrc,.eslintrc.json}'
@@ -34,16 +34,16 @@ mac:
         - 'x64'
         - 'arm64'
   artifactName: '${productName}-installer-${version}-${arch}.${ext}'
-  category: 'public.app-category.games'
+  category: 'public.app-category.tutorial'
 
 # Linux Configuration
 linux: 
   target: 'AppImage'
-  maintainer: 'Your Name'
-  vendor: 'Your Name'
-  synopsis: 'My Electron App'
-  description: 'Electron App with multi-os'
-  category: 'Sample'
+  maintainer: 'Abhinav VS'
+  vendor: 'Abhinav VS'
+  synopsis: 'Electron App Multi OS'
+  description: 'A Multi OS compatible electron app.'
+  category: 'Tutorial'
 
 
 directories:
