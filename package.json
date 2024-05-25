@@ -1,15 +1,26 @@
 {
-  "name": "my-electron-app",
-  "version": "1.0.0",
-  "description": "A simple Electron application.",
-  "main": "main.js",
+  "name": "electron-app-multi-os",
+  "version": "2.2.1",
+  "productName": "Electron App Multi OS",
+  "description": "A Multi OS compatible electron app.",
+  "author": "Abhinav VS",
+  "license": "UNLICENSED",
+  "homepage": "https://github.com/Abhinav2011VS/Electron-MultiPlatform-Apps",
+  "bugs": {
+    "url": "https://github.com/Abhinav2011VS/Electron-MultiPlatform-Apps/issues"
+  },
+  "private": true,
+  "main": "index.js",
   "scripts": {
     "start": "electron .",
-    "build": "electron-builder build",
+    "dist": "electron-builder build",
     "dist:win": "npm run dist -- -w",
     "dist:mac": "npm run dist -- -m",
     "dist:linux": "npm run dist -- -l",
     "lint": "eslint --config .eslintrc.json ."
+  },
+  "engines": {
+    "node": "20.x.x"
   },
   "dependencies": {
     "@electron/remote": "^2.1.2",
@@ -31,26 +42,8 @@
     "electron-builder": "^24.13.3",
     "eslint": "^8.57.0"
   },
-  "build": {
-    "appId": "com.example.my-electron-app",
-    "mac": {
-      "category": "public.app-category.utilities",
-      "target": ["dmg", "zip"]
-    },
-    "win": {
-      "target": ["nsis", "msi"]
-    },
-    "linux": {
-      "target": ["AppImage", "deb"]
-    }
-  },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Abhinav2011VS/Electron-MultiPlatform-Apps.git"
-  },
-  "author": "Your Name",
-  "license": "UNLICENSED",
-  "engines": {
-    "node": "20.x.x"
+    "url": "git+https://github.com/Abhinav2011VS/Electron-MultiPlatform-Apps.git"
   }
 }
